@@ -15,7 +15,7 @@ All the code is in the `src\app` folder. The `src` folder is structured as follo
 - `src/components`: contains all the components used in the project, `.tsx` files alike.
 - `public`: to store static assets such as images, fonts, etc. Files inside public directory can then be referenced by your code starting from the base URL (/).
 
-Routing:
+**Routing**:
 Next.js uses file-system routing, which means the routes in your application are determined by how you structure your files.
 The project is usind the App Router:
 - Next.js uses a file-system based router where folders are used to define routes.
