@@ -6,19 +6,24 @@ This is the repository for the Web Applications Project `Memo Match`. We are usi
 
 Resources to get started:
 - [React documentation](https://react.dev/learn)
-- [DaisyUI](https://daisyui.com/docs/install/)
+- [DaisyUI](https://daisyui.com/docs/use/)
 
 ## Project Structure
 All the code is in the `src\app` folder. The `src` folder is structured as follows:
-- `src/layout.tsx`: contains the root layout with the required <html> and <body> tags  and will be rendered when the user visits the root of the application (/)
-- `src/app.tsx`: is the homepage
+- `src/app/layout.tsx`: contains the root layout with the required `<html>` and `<body>` tags.
+- `src/app/page.tsx`: is the homepage and will be rendered when the user visits the root of the application (/).
 - `src/components`: contains all the components used in the project, `.tsx` files alike.
 - `public`: to store static assets such as images, fonts, etc. Files inside public directory can then be referenced by your code starting from the base URL (/).
 
-Routing:  Next.js uses file-system routing, which means the routes in your application are determined by how you structure your files.
+Routing:
+Next.js uses file-system routing, which means the routes in your application are determined by how you structure your files.
+The project is usind the App Router:
+- Next.js uses a file-system based router where folders are used to define routes.
+- Each folder represents a route segment that maps to a URL segment. To create a nested route, you can nest folders inside each other.
+- A special page.tsx file is used to make route segments publicly accessible.
+- Special file conventions are used to create UI for each route segment. The most common are `pages` to show UI unique to a route, and `layouts` to show UI that is shared across multiple routes. [See also](https://nextjs.org/docs/app/building-your-application/routing#file-conventions)
 
 ## How to run the project
-_ Make sure you outline all required steps that are needed to run this project_
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/en/) (2021 installed or higher should be just fine)
