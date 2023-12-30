@@ -16,12 +16,11 @@ All the code is in the `src\app` folder. The `src` folder is structured as follo
 - `public`: to store static assets such as images, fonts, etc. Files inside public directory can then be referenced by your code starting from the base URL (/).
 
 **Routing**:
-Next.js uses file-system routing, which means the routes in your application are determined by how you structure your files.
-The project is usind the App Router:
+The project is using the App Router framework:
 - Next.js uses a file-system based router where folders are used to define routes.
 - Each folder represents a route segment that maps to a URL segment. To create a nested route, you can nest folders inside each other.
 - A special page.tsx file is used to make route segments publicly accessible.
-- Special file conventions are used to create UI for each route segment. The most common are `pages` to show UI unique to a route, and `layouts` to show UI that is shared across multiple routes. [See also](https://nextjs.org/docs/app/building-your-application/routing#file-conventions)
+- Special file conventions are used to create UI for each route segment. The most common are `pages` to show UI unique to a route, and `layouts` to show UI that is shared across multiple routes. For further information about special file conventions [Click here](https://nextjs.org/docs/app/building-your-application/routing#file-conventions)
 
 ## How to run the project
 
@@ -37,7 +36,7 @@ The project is usind the App Router:
 ## Development
 
 ### Collaboration & Git
-We are working with a `feature branch based development`. Changes are made on individual branches and are merged via pull requests into the main branch.
+We are working with a `feature branch based development`. Changes are made on individual branches and are merged via `pull requests` into the main branch.
 There is 1 fixed branche `main`. Additionally, for every `feature` and `bugfix` a new branch is created. Below are the naming conventions:
 - Main branch main / master
 - Feature branches feature/*
