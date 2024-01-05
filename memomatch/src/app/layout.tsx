@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
 // These styles apply to every route in the application
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Memo Match",
@@ -23,7 +24,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/next.svg" />
       </head>
-      <body className="flex h-screen bg-[#0F102C]">
+      <body className={`flex min-h-screen bg-[#0F102C] ${inter.className}`}>
         <main className="m-auto w-full">
           <h1>MEMOMATCH</h1>
           {children}

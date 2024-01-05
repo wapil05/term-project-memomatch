@@ -1,7 +1,8 @@
-"use client";
+// "use client";
 import { useState } from "react";
 import { useGameRoom } from "@/hooks/useGameRoom";
 import { useRouter } from "next/navigation";
+import Memory from "./Memory";
 
 interface GameProps {
   username: string;
@@ -29,13 +30,6 @@ const Game = ({ username, roomId }: GameProps) => {
     );
   }
 
-  const handleGuess = (event: React.SyntheticEvent) => {
-    event.preventDefault();
-    // Dispatch allows you to send an action!
-    // Modify /game/logic.ts to change what actions you can send
-    dispatch({ type: "guess", guess: guess });
-  };
-
   const getActivePlayer = () => {
     return gameState.users[gameState.active_player!]?.id;
   };
@@ -48,25 +42,28 @@ const Game = ({ username, roomId }: GameProps) => {
   if (gameState.active_player === null)
     return (
       <div className=" flex w-8/12 m-auto gap-9">
-        <section className="mydiv w-64">
-          <h2>User list</h2>
-          <ul className="mt-5">
-            {gameState.users.map((user) => {
-              return (
-                <li
-                  key={user.id}
-                  className={
-                    username === user.id
-                      ? " font-bold text-center"
-                      : "text-center"
-                  }
-                >
-                  {user.id}
-                </li>
-              );
-            })}
-          </ul>
+        <section className="mydiv w-64 grid">
+          <div>
+            <h2>User list</h2>
+            <ul className="mt-5">
+              {gameState.users.map((user) => {
+                return (
+                  <li
+                    key={user.id}
+                    className={
+                      username === user.id
+                        ? " font-bold text-center"
+                        : "text-center"
+                    }
+                  >
+                    {user.id}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
           <button
+            className="underline self-end"
             onClick={() => {
               router.push("/login");
             }}
@@ -76,8 +73,16 @@ const Game = ({ username, roomId }: GameProps) => {
         </section>
         <section className="mydiv flex flex-col gap-5 grow items-center">
           <h2>settings</h2>
+          <br />
           <p>tbd</p>
-          <button className="btn" onClick={() => dispatch({ type: "turn" })}>
+          <br />
+
+          <button
+            className="btn"
+            onClick={() => {
+              dispatch({ type: "reset" });
+            }}
+          >
             start game
           </button>
         </section>
@@ -87,7 +92,7 @@ const Game = ({ username, roomId }: GameProps) => {
   else
     return (
       <div className=" flex w-8/12 m-auto gap-9">
-        <section className="mydiv w-64 h-min flex flex-col gap-2">
+        <section className="mydiv w-75 h-min flex flex-col gap-2">
           <h2>Leaderboard</h2>
           <ul className="my-5">
             {gameState.users.map((user) => {
@@ -108,50 +113,35 @@ const Game = ({ username, roomId }: GameProps) => {
 
           {gameState.finished ? (
             <>
-              <div className="alert alert-success h-min text-center">
-                {myturn() ? <>You</> : <>{getActivePlayer()}</>} guessed
-                correct!
+              <div className="alert alert-success h-min text-center rounded-md">
+                <span>😎</span>
+                <span> All pairs found!</span>
               </div>
               <button
                 className="btn w-full"
-                onClick={() => dispatch({ type: "turn" })}
+                onClick={() => dispatch({ type: "reset" })}
               >
                 play again
               </button>
             </>
           ) : (
             <>
-              <p className=" mt-10 text-center text-xl text-white font-semibold">
+              <p className=" my-5 text-center text-xl text-white font-semibold">
                 {myturn() ? <>Your</> : <>{getActivePlayer()}&apos;s</>} turn!
               </p>
             </>
           )}
+
+          <button
+            className="underline self-end w-full"
+            onClick={() => dispatch({ type: "settings" })}
+          >
+            back to settings
+          </button>
         </section>
 
         <section className="mydiv grid gap-5 grow items-center h-[800px]">
-          <form
-            className="flex flex-col gap-4 py-6 items-center"
-            onSubmit={handleGuess}
-          >
-            <label
-              htmlFor="guess"
-              className="text-7xl font-bold text-stone-50 bg-black rounded p-2 text-"
-            >
-              {guess}
-            </label>
-            <input
-              type="range"
-              name="guess"
-              id="guess"
-              className="range w-56"
-              onChange={(e) => setGuess(Number(e.currentTarget.value))}
-              value={guess}
-              max={10}
-            />
-            <button className="btn" disabled={!myturn() || gameState.finished}>
-              Guess!
-            </button>
-          </form>
+          <Memory state={gameState} myturn={myturn()} dispatch={dispatch} />
         </section>
       </div>
     );

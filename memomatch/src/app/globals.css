@@ -2,12 +2,10 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import url(myFlipbox.css);
+
 /* layers */
 @layer base {
-  body {
-    @apply min-h-screen h-full w-full bg-slate-900;
-  }
-
   h1 {
     @apply text-center text-white text-4xl font-semibold uppercase;
   }
@@ -24,4 +22,4 @@
 }
 
 /* font import */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&&display=swap"); */

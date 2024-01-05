@@ -18,7 +18,17 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Montserrat, a custom Google Font.
+
+## Partykit server
+
+Run the following command in your terminal in your project’s directory to start the partykit dev server:
+
+```bash
+npx partykit dev
+```
+
+The Game Setup is based on this [Example](https://docs.partykit.io/examples/starter-kits/game-starter-nextjs-redux/).
 
 ## Learn More
 
