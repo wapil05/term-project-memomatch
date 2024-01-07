@@ -45,7 +45,7 @@ const Game = ({ username, roomId }: GameProps) => {
         <section className="mydiv w-64 grid">
           <div>
             <h2>User list</h2>
-            <ul className="mt-5">
+            <ul className="mt-5 uppercase">
               {gameState.users.map((user) => {
                 return (
                   <li
@@ -63,9 +63,9 @@ const Game = ({ username, roomId }: GameProps) => {
             </ul>
           </div>
           <button
-            className="underline self-end"
+            className="link self-end"
             onClick={() => {
-              router.push("/login");
+              router.push("/");
             }}
           >
             log out
@@ -74,7 +74,16 @@ const Game = ({ username, roomId }: GameProps) => {
         <section className="mydiv flex flex-col gap-5 grow items-center">
           <h2>settings</h2>
           <br />
-          <p>tbd</p>
+          <p>THEME</p>
+          <div className="flex flex-row gap-3">
+            <button className="btn btn-wide text-[16px]">cats</button>
+            <button className="btn btn-wide text-[16px]">dogs</button>
+          </div>
+          <p>BOARD SIZE</p>
+          <div className="flex flex-row gap-3">
+            <button className="btn btn-wide text-[16px]">4 x 4</button>
+            <button className="btn btn-wide text-[16px]">5 x 4</button>
+          </div>
           <br />
 
           <button
@@ -133,7 +142,7 @@ const Game = ({ username, roomId }: GameProps) => {
           )}
 
           <button
-            className="underline self-end w-full"
+            className="link"
             onClick={() => dispatch({ type: "settings" })}
           >
             back to settings

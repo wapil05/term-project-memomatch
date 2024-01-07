@@ -2,22 +2,66 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+/* importing css files */
 @import url(myFlipbox.css);
+
+/* importing font family 'Montserrat' */
+@font-face{ 
+  font-family: "Montserrat"; 
+  src: url("../../public/fonts/Montserrat/Montserrat-VariableFont_wght.ttf"); 
+  }
+
+@font-face{ 
+  font-family: "Montserrat"; 
+  src: url("../../public/fonts/Montserrat/static/Montserrat-SemiBold.ttf");
+  font-weight: semi-bold;
+}
 
 /* layers */
 @layer base {
+
+  html {
+    font-family: 'Montserrat';
+    font-weight: 'semi-bold';
+  }
+  
+  body {
+    @apply bg-[#0F102C] flex min-h-screen
+  }
+
+  main {
+    @apply m-auto w-full
+  }
+
   h1 {
-    @apply text-center text-white text-4xl font-semibold uppercase;
+    @apply text-center text-white text-4xl uppercase;
   }
 
   h2 {
-    @apply text-center text-white text-3xl font-semibold uppercase;
+    @apply text-center text-white text-3xl uppercase;
+  }
+
+  h3 {
+    @apply text-center text-white text-2xl uppercase;
   }
 }
 
+/* By defining component classes in the components layer, you can still use utility classes to override them  */
 @layer components {
+  .btn{
+    @apply text-[22px] text-black uppercase bg-white rounded-xl hover:btn-primary focus:btn-primary;
+  }
+
+  .input {
+    @apply w-[529px] h-[63px] bg-gray-700 rounded-[14px] uppercase
+  }
+
   .mydiv {
-    @apply bg-slate-800 rounded-xl shadow p-5 w-min m-auto my-5;
+    @apply bg-slate-800 rounded-xl shadow-lg shadow-black p-5 w-min m-auto my-5;
+  }
+
+  .link {
+    @apply underline uppercase hover:text-white;
   }
 }
 

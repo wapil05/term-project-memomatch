@@ -40,9 +40,9 @@ export const initialGame = () => ({
 
 
 const cards = () => {
-  //let card_values = ["0", "1", "2", "3", "4", "5", "6", "7"]; // to do: => cat/dog images
+  let card_values = ["0", "1", "2", "3", "4", "5", "6", "7"]; // to do: => cat/dog images
 
-  let card_values = getCatPics();
+  //let card_values = getCatPics();
 
     function shuffle(array: string[]) {
     let currentIndex = array.length,
