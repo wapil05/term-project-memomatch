@@ -1,3 +1,7 @@
+import { getCatPics } from "../api/api";
+import { getDogPics } from "../api/api";
+
+
 export interface User {
   id: string;
 }
@@ -34,10 +38,13 @@ export const initialGame = () => ({
   pick_b: -1,
 });
 
-const cards = () => {
-  let card_values = ["0", "1", "2", "3", "4", "5", "6", "7"]; // to do: => cat/dog images
 
-  function shuffle(array: string[]) {
+const cards = () => {
+  //let card_values = ["0", "1", "2", "3", "4", "5", "6", "7"]; // to do: => cat/dog images
+
+  let card_values = getCatPics();
+
+    function shuffle(array: string[]) {
     let currentIndex = array.length,
       randomIndex;
 

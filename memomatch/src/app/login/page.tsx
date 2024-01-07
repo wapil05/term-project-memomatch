@@ -3,6 +3,7 @@ import Game from "@/components/Game";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { z } from "zod";
+import { getCatPics } from "../../../api/api";
 
 const queryParamsValidator = z.object({
   username: z.string().min(1),
@@ -61,6 +62,7 @@ export default function Login() {
 
         <button className="btn w-[222px]">log in</button>
       </form>
+      <button className="btn w-[222px]" onClick={getCatPics}>cats</button>
     </section>
   );
 }

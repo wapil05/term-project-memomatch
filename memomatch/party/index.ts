@@ -51,6 +51,15 @@ export default class Server implements Party.Server {
     this.gameState = gameUpdater(action, this.gameState);
     this.party.broadcast(JSON.stringify(this.gameState));
   }
+
+  static async onFetch(
+    req: Party.Request,
+    lobby: Party.FetchLobby,
+    ctx: Party.ExecutionContext
+  ) {
+    return new Response(req.url, { status: 403 });
+  }
+
 }
 
 Server satisfies Party.Worker;
