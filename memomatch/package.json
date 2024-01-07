@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "jotai": "^2.6.1",
     "next": "14.0.4",
+    "partysocket": "0.0.19",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -21,6 +23,7 @@
     "daisyui": "^4.4.24",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
+    "partykit": "0.0.63",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.4.0",
     "typescript": "^5"
