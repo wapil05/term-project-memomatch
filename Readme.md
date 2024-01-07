@@ -7,6 +7,7 @@ This is the repository for the Web Applications Project `Memo Match`. We are usi
 Resources to get started:
 - [React documentation](https://react.dev/learn)
 - [DaisyUI](https://daisyui.com/docs/use/)
+- [Tailwind CSS](https://tailwindcss.com/docs/utility-first)
 
 ## Project Structure
 All the code is in the `src\app` folder. The `src` folder is structured as follows:
