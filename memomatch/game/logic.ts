@@ -1,6 +1,4 @@
-import { getCatPics } from "../api/api";
-import { getDogPics } from "../api/api";
-
+import { getCatPics, getDogPics } from "../api/api";
 
 export interface User {
   id: string;
@@ -24,6 +22,8 @@ export interface GameState {
   cards: mycard[];
   pick_a: number;
   pick_b: number;
+  boardSize: number;
+  theme: string;
 }
 
 // This is how a fresh new game starts out, it's a function so you can make it dynamic!
@@ -36,15 +36,35 @@ export const initialGame = () => ({
   cards: cards(),
   pick_a: -1,
   pick_b: -1,
+  boardSize: 8,
+  theme: 'cats',
 });
 
-
 const cards = () => {
-  let card_values = ["0", "1", "2", "3", "4", "5", "6", "7"]; // to do: => cat/dog images
+  //let card_values = ["0", "1", "2", "3", "4", "5", "6", "7"]; // to do: => cat/dog images
+  let card_values: string[] = [];
 
-  //let card_values = getCatPics();
+  switch() {
+    case 8:
+      card_values = ["0", "1", "2", "3", "4", "5", "6", "7"];
+      break;
+    case 10:
+      card_values = ["8", "9", "10", "11", "12", "13", "14", "15", "16", "17"];
+      break;
+  }
 
-    function shuffle(array: string[]) {
+  /*
+  switch(theme) {
+    case 'cats':
+      card_values = getCatPics(boardSize);
+      break;
+    case 'dogs':
+      card_values = getDogPics(boardSize);
+      break;
+  }
+  */  
+
+  function shuffle(array: string[]) {
     let currentIndex = array.length,
       randomIndex;
 
@@ -78,10 +98,12 @@ const cards = () => {
 
 // Here are all the actions we can dispatch for a user
 type GameAction =
+    { type: "start"; boardSize: number; theme: string}
   | { type: "reset" }
   | { type: "settings" }
   | { type: "pick"; i: number }
   | { type: "compare" };
+    
 
 const nextTurn = (state: GameState) => {
   if (state.active_player === state.users.length - 1) return 0;
@@ -112,6 +134,19 @@ export const gameUpdater = (
       };
     case "settings":
       return { ...state, active_player: null };
+
+    case "start":
+      return {
+        ...state,
+        active_player: 0,
+        finished: false,
+        cards: cards(),
+        pick_a: -1,
+        pick_b: -1,
+        boardSize: action.boardSize,
+        theme: action.theme,
+      };
+
     case "reset":
       return {
         ...state,
@@ -120,6 +155,8 @@ export const gameUpdater = (
         cards: cards(),
         pick_a: -1,
         pick_b: -1,
+        boardSize: 8,
+        theme: 'cats',
       };
 
     case "pick":

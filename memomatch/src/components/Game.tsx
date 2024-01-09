@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useGameRoom } from "@/hooks/useGameRoom";
 import { useRouter } from "next/navigation";
 import Memory from "./Memory";
+import { themeAtom, boardSizeAtom } from "../../state/atoms";
+import { useAtom } from "jotai";
 
 interface GameProps {
   username: string;
@@ -12,6 +14,8 @@ interface GameProps {
 const Game = ({ username, roomId }: GameProps) => {
   const { gameState, dispatch } = useGameRoom(username, roomId);
   const [showSettings, setShowSettings] = useState(true);
+  const [theme, setTheme] = useAtom(themeAtom);
+  const [boardSize, setBoardSize] = useAtom(boardSizeAtom);
 
   const router = useRouter();
 
@@ -76,21 +80,31 @@ const Game = ({ username, roomId }: GameProps) => {
           <br />
           <p>THEME</p>
           <div className="flex flex-row gap-3">
-            <button className="btn btn-wide text-[16px]">cats</button>
-            <button className="btn btn-wide text-[16px]">dogs</button>
+            <button className="setttings"
+              onClick={() => {
+                setTheme('cats')
+              }}>cats</button>
+            <button className="settings"
+              onClick={() => {
+                setTheme('dogs')
+              }}>dogs</button>
           </div>
           <p>BOARD SIZE</p>
           <div className="flex flex-row gap-3">
-            <button className="btn btn-wide text-[16px]">4 x 4</button>
-            <button className="btn btn-wide text-[16px]">5 x 4</button>
+            <button className="settings"
+              onClick={() => {
+                setBoardSize(8)
+              }}>4 x 4</button>
+            <button className="settings"
+              onClick={() => {
+                setBoardSize(10)
+              }}>5 x 4</button>
           </div>
           <br />
 
           <button
             className="btn"
-            onClick={() => {
-              dispatch({ type: "reset" });
-            }}
+            onClick={() => dispatch({ type: "start", boardSize: boardSize, theme: theme })}
           >
             start game
           </button>
@@ -150,7 +164,7 @@ const Game = ({ username, roomId }: GameProps) => {
         </section>
 
         <section className="mydiv grid gap-5 grow items-center h-[800px]">
-          <Memory state={gameState} myturn={myturn()} dispatch={dispatch} />
+          <Memory state={gameState} myturn={myturn()} dispatch={dispatch}  />
         </section>
       </div>
     );

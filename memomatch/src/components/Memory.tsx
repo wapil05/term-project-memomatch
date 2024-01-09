@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { GameState } from "../../game/logic";
 import MemoryCard from "./MemoryCard";
+import { boardSizeAtom } from "../../state/atoms";
+import { useAtomValue } from "jotai";
+
 
 const Memory = ({
   state,
@@ -13,7 +16,6 @@ const Memory = ({
 }) => {
   // //reshape array to 2d
   // while (state.cards.length) cards.push(state.cards.splice(0, 4));
-
   const [pickCount, setPickCount] = useState(0);
 
   useEffect(() => {
@@ -28,26 +30,51 @@ const Memory = ({
     }
   }, [pickCount]);
 
-  return (
-    <>
-      <div className="grid grid-cols-4 gap-2 w-[664px] place-self-center">
-        {state.cards.map((c, index) => {
-          return (
-            <MemoryCard
-              img={c.src}
-              key={index}
-              state={c.state}
-              index={index}
-              dispatch={dispatch}
-              myturn={myturn}
-              count={pickCount}
-              setCount={setPickCount}
-            />
-          );
-        })}
-      </div>
-    </>
-  );
+  if (state.boardSize == 8) {
+    return (
+      <>
+        <div className="grid grid-cols-4 gap-2 w-[664px] place-self-center">
+          {state.cards.map((c, index) => {
+            return (
+              <MemoryCard
+                img={c.src}
+                key={index}
+                state={c.state}
+                index={index}
+                dispatch={dispatch}
+                myturn={myturn}
+                count={pickCount}
+                setCount={setPickCount}
+              />
+            );
+          })}
+        </div>
+      </>
+    )
+  }
+  else {
+    return (
+      <>
+        <div className="grid grid-cols-5 gap-2 w-[664px] place-self-center">
+          {state.cards.map((c, index) => {
+            return (
+              <MemoryCard
+                img={c.src}
+                key={index}
+                state={c.state}
+                index={index}
+                dispatch={dispatch}
+                myturn={myturn}
+                count={pickCount}
+                setCount={setPickCount}
+              />
+            );
+          })}
+        </div>
+      </>
+    );
+  }
+
 };
 
 export default Memory;

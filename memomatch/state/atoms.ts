@@ -1,3 +1,9 @@
-import { atom, useAtom } from 'jotai'
+import { atom } from 'jotai'
 
-const boardSize = atom(10)
+export const boardSizeAtom = atom<8|10>(8)
+
+export const themeAtom = atom<'cats'|'dogs'>('cats')
+
+export const usernameAtom = atom<string>('')
+
+

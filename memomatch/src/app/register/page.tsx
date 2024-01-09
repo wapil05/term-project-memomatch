@@ -1,6 +1,11 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { usernameAtom } from "../../../state/atoms";
+import { useAtom, atom } from "jotai";
+
+const passwordAtom = atom<string>('');
+const confPasswordAtom = atom<string>('');
 
 const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
@@ -15,6 +20,9 @@ const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 
 export default function Register() {
   const router = useRouter();
+  const [username, setUserName] = useAtom(usernameAtom);
+  const [password, setPassword] = useAtom(passwordAtom);
+  const [confPassword, setConfPassword] = useAtom(confPasswordAtom);
 
   return (
     <section className="mydiv">
@@ -29,8 +37,8 @@ export default function Register() {
           <input
             className="input"
             type="text"
-            //value={setup.username || ""}
-            //onChange={(e) => setSetup({ username: e.currentTarget.value })}
+            value={username || ""}
+            onChange={(e) => setUserName(e.currentTarget.value )}
             name="username"
             id="username"
             placeholder="username"
@@ -38,8 +46,8 @@ export default function Register() {
           <input
             className="input"
             type="text"
-            //value={setup.username || ""}
-            //onChange={(e) => setSetup({ username: e.currentTarget.value })}
+            value={password || ""}
+            onChange={(e) => setPassword(e.currentTarget.value)}
             name="password"
             id="password"
             placeholder="password"
@@ -47,8 +55,8 @@ export default function Register() {
           <input
             className="input"
             type="text"
-            //value={setup.username || ""}
-            //onChange={(e) => setSetup({ username: e.currentTarget.value })}
+            value={confPassword || ""}
+            onChange={(e) => setConfPassword(e.currentTarget.value)}
             name="confpassword"
             id="confpassword"
             placeholder="confirm password"
