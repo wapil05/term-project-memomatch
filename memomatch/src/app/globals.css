@@ -49,12 +49,13 @@
 /* By defining component classes in the components layer, you can still use utility classes to override them  */
 @layer components {
   .btn{
-    @apply text-[22px] text-black uppercase bg-white rounded-xl hover:btn-primary;
+    @apply text-[22px] text-black uppercase bg-white rounded-xl border hover:btn-primary active:bg-indigo-700;
   }
 
   .settings {
-    @apply text-[16px] text-black uppercase btn-wide bg-white rounded-xl btn-active btn-primary hover:btn-primary;
+    @apply text-[16px] btn-wide;
   }
+
 
   .input {
     @apply w-[529px] h-[63px] bg-gray-700 rounded-[14px] uppercase

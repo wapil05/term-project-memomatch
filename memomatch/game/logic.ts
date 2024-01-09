@@ -1,6 +1,5 @@
-import { getCatPics } from "../api/api";
-import { getDogPics } from "../api/api";
 import { Room } from "partykit/server";
+import { fetchCardValues } from "../party";
 
 export interface User {
   id: string;
@@ -27,11 +26,19 @@ export interface GameState {
   theme: string;
 }
 
+// per default Cats pics (4x5) for initial GameState
+let fetched_values: string[];
+
 // This is how a fresh new game starts out, it's a function so you can make it dynamic!
 // In the case of the guesser game we start out with a random target
 export const initialGame = (party: Room) => {
+  
   //fetch card values when room is created
-  fetchCardValues(party.env.CAT_API_KEY);
+  fetchCardValues(
+    "https://api.thecatapi.com/v1/images/search?&limit=8&order=RAND&api_key=" +
+      party.env.CAT_API_KEY
+  ).then((data) => (fetched_values = data));
+  
   return {
     users: [],
     active_player: null,
@@ -40,33 +47,8 @@ export const initialGame = (party: Room) => {
     pick_a: -1,
     pick_b: -1,
     boardSize: 8,
-    theme: 'cats',
+    theme: "cats",
   };
-};
-
-// const catApiKey = process.env.CAT_API_KEY;
-// const dogApiKey = process.env.DOG_API_KEY;
-
-  /*
-  switch(theme) {
-    case 'cats':
-      card_values = getCatPics(boardSize);
-      break;
-    case 'dogs':
-      card_values = getDogPics(boardSize);
-      break;
-  }
-  */  
-let fetched_values: string[];
-const fetchCardValues = async (api_key: any) => {
-  const res = await fetch(
-    "https://api.thecatapi.com/v1/images/search?&limit=8&order=RAND&api_key=" +
-      api_key
-  );
-  const imgs = await res.json();
-  const card_values = imgs.map((c: { url: any }) => c.url);
-
-  fetched_values = card_values;
 };
 
 const cards = (card_values: string[]) => {
@@ -86,7 +68,6 @@ const cards = (card_values: string[]) => {
         array[currentIndex],
       ];
     }
-
     return array;
   }
 
@@ -102,14 +83,12 @@ const cards = (card_values: string[]) => {
 };
 
 // Here are all the actions we can dispatch for a user
-type GameAction =
-    { type: "start"; boardSize: number; theme: string}
-  | { type: "reset" }
-  //apikey & boardsize are optional since they are added by the server not by the user
-  | { type: "settings"; apikey?: unknown; boardsize?: number }
+type GameAction =  
+  | { type: "start"; boardSize: number; theme: string, urls?: string[] }
+  | { type: "reset"; boardSize: number; theme: string, urls?: string[] }
+  | { type: "settings" }
   | { type: "pick"; i: number }
   | { type: "compare" };
-    
 
 const nextTurn = (state: GameState) => {
   if (state.active_player === state.users.length - 1) return 0;
@@ -126,7 +105,8 @@ export const gameUpdater = (
 
   // Every action has a user field that represent the user who dispatched the action,
   // you don't need to add this yourself
-  switch (action.type) {
+
+  switch (action.type) {    
     case "UserEntered":
       return {
         ...state,
@@ -139,16 +119,16 @@ export const gameUpdater = (
         users: state.users.filter((user) => user.id !== action.user.id),
       };
     case "settings":
-      // fetch new card values when returned to settings
-      fetchCardValues(action.apikey);
       return { ...state, active_player: null };
 
-    case "start":
+    case "start":      
+      // data fetching happens in party/index.ts and gets handed over via action.urls parameter
       return {
         ...state,
         active_player: 0,
         finished: false,
-        cards: cards(),
+        cards:
+          cards((action.urls) ?? ["0", "1", "2", "3", "4", "5", "6", "7"]), //set new fetch values if not null
         pick_a: -1,
         pick_b: -1,
         boardSize: action.boardSize,
@@ -156,17 +136,18 @@ export const gameUpdater = (
       };
 
     case "reset":
+      // data fetching happens in party/index.ts and gets handed over via action.urls parameter
+      // per default cat pics 4x4 will be fetched
       return {
         ...state,
         active_player: 0,
         finished: false,
         cards:
-          cards(fetched_values) ?? //set new fetch values if not null
-          cards(["0", "1", "2", "3", "4", "5", "6", "7"]),
+          cards((action.urls) ?? ["0", "1", "2", "3", "4", "5", "6", "7"]),  //set new fetch values if not null
         pick_a: -1,
         pick_b: -1,
-        boardSize: 8,
-        theme: 'cats',
+        boardSize: action.boardSize,
+        theme: action.theme,
       };
 
     case "pick":

@@ -75,27 +75,28 @@ const Game = ({ username, roomId }: GameProps) => {
             log out
           </button>
         </section>
+
         <section className="mydiv flex flex-col gap-5 grow items-center">
           <h2>settings</h2>
           <br />
           <p>THEME</p>
           <div className="flex flex-row gap-3">
-            <button className="setttings"
+            <button className="btn settings"
               onClick={() => {
                 setTheme('cats')
               }}>cats</button>
-            <button className="settings"
+            <button className="btn settings"
               onClick={() => {
                 setTheme('dogs')
               }}>dogs</button>
           </div>
           <p>BOARD SIZE</p>
           <div className="flex flex-row gap-3">
-            <button className="settings"
+            <button className="btn settings"
               onClick={() => {
                 setBoardSize(8)
               }}>4 x 4</button>
-            <button className="settings"
+            <button className="btn settings"
               onClick={() => {
                 setBoardSize(10)
               }}>5 x 4</button>
@@ -117,7 +118,7 @@ const Game = ({ username, roomId }: GameProps) => {
       <div className=" flex w-8/12 m-auto gap-9">
         <section className="mydiv w-75 h-min flex flex-col gap-2">
           <h2>Leaderboard</h2>
-          <ul className="my-5">
+          <ul className="my-4">
             {gameState.users.map((user) => {
               return (
                 <li
@@ -142,7 +143,7 @@ const Game = ({ username, roomId }: GameProps) => {
               </div>
               <button
                 className="btn w-full"
-                onClick={() => dispatch({ type: "reset" })}
+                onClick={() => dispatch({ type: "reset", boardSize: boardSize, theme: theme})}
               >
                 play again
               </button>
@@ -164,7 +165,7 @@ const Game = ({ username, roomId }: GameProps) => {
         </section>
 
         <section className="mydiv grid gap-5 grow items-center h-[800px]">
-          <Memory state={gameState} myturn={myturn()} dispatch={dispatch}  />
+          <Memory state={gameState} myturn={myturn()} dispatch={dispatch} />
         </section>
       </div>
     );

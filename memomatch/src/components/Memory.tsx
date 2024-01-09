@@ -55,7 +55,7 @@ const Memory = ({
   else {
     return (
       <>
-        <div className="grid grid-cols-5 gap-2 w-[664px] place-self-center">
+        <div className="grid grid-cols-5 gap-2 w-[830px] place-self-center">
           {state.cards.map((c, index) => {
             return (
               <MemoryCard
