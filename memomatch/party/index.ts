@@ -9,9 +9,8 @@ interface ServerMessage {
 export default class Server implements Party.Server {
   private gameState: GameState;
   constructor(readonly party: Party.Party) {
-    this.gameState = initialGame();
+    this.gameState = initialGame(party);
     console.log("Room created:", party.id);
-    console.log("Room target", this.gameState.target);
   }
 
   onConnect(connection: Party.Connection, ctx: Party.ConnectionContext) {
@@ -48,7 +47,13 @@ export default class Server implements Party.Server {
       user: { id: sender.id },
     };
     console.log(`Received action ${action.type} from user ${sender.id}`);
-    this.gameState = gameUpdater(action, this.gameState);
+    if (action.type === "settings")
+      //to-do: check settings for key + board size
+      this.gameState = gameUpdater(
+        { ...action, apikey: this.party.env.CAT_API_KEY },
+        this.gameState
+      );
+    else this.gameState = gameUpdater(action, this.gameState);
     this.party.broadcast(JSON.stringify(this.gameState));
   }
 
@@ -59,7 +64,6 @@ export default class Server implements Party.Server {
   ) {
     return new Response(req.url, { status: 403 });
   }
-
 }
 
 Server satisfies Party.Worker;

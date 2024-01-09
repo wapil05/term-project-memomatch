@@ -1,6 +1,6 @@
 import { getCatPics } from "../api/api";
 import { getDogPics } from "../api/api";
-
+import { Room } from "partykit/server";
 
 export interface User {
   id: string;
@@ -18,7 +18,6 @@ type mycard = { src: string; state: boolean | "guessed" };
 // This interface holds all the information about your game
 export interface GameState {
   users: User[];
-  target: number;
   active_player: number | null;
   finished: boolean;
   cards: mycard[];
@@ -28,23 +27,36 @@ export interface GameState {
 
 // This is how a fresh new game starts out, it's a function so you can make it dynamic!
 // In the case of the guesser game we start out with a random target
-export const initialGame = () => ({
-  users: [],
-  target: Math.floor(Math.random() * 10),
-  active_player: null,
-  finished: false,
-  cards: cards(),
-  pick_a: -1,
-  pick_b: -1,
-});
+export const initialGame = (party: Room) => {
+  //fetch card values when room is created
+  fetchCardValues(party.env.CAT_API_KEY);
+  return {
+    users: [],
+    active_player: null,
+    finished: false,
+    cards: cards(["0", "1", "2", "3", "4", "5", "6", "7"]),
+    pick_a: -1,
+    pick_b: -1,
+  };
+};
 
+// const catApiKey = process.env.CAT_API_KEY;
+// const dogApiKey = process.env.DOG_API_KEY;
 
-const cards = () => {
-  let card_values = ["0", "1", "2", "3", "4", "5", "6", "7"]; // to do: => cat/dog images
+let fetched_values: string[];
+const fetchCardValues = async (api_key: any) => {
+  const res = await fetch(
+    "https://api.thecatapi.com/v1/images/search?&limit=8&order=RAND&api_key=" +
+      api_key
+  );
+  const imgs = await res.json();
+  const card_values = imgs.map((c: { url: any }) => c.url);
 
-  //let card_values = getCatPics();
+  fetched_values = card_values;
+};
 
-    function shuffle(array: string[]) {
+const cards = (card_values: string[]) => {
+  function shuffle(array: string[]) {
     let currentIndex = array.length,
       randomIndex;
 
@@ -72,14 +84,14 @@ const cards = () => {
     return { src: c, state: false };
   });
 
-  console.log(arr);
   return arr;
 };
 
 // Here are all the actions we can dispatch for a user
 type GameAction =
   | { type: "reset" }
-  | { type: "settings" }
+  //apikey & boardsize are optional since they are added by the server not by the user
+  | { type: "settings"; apikey?: unknown; boardsize?: number }
   | { type: "pick"; i: number }
   | { type: "compare" };
 
@@ -111,13 +123,17 @@ export const gameUpdater = (
         users: state.users.filter((user) => user.id !== action.user.id),
       };
     case "settings":
+      // fetch new card values when returned to settings
+      fetchCardValues(action.apikey);
       return { ...state, active_player: null };
     case "reset":
       return {
         ...state,
         active_player: 0,
         finished: false,
-        cards: cards(),
+        cards:
+          cards(fetched_values) ?? //set new fetch values if not null
+          cards(["0", "1", "2", "3", "4", "5", "6", "7"]),
         pick_a: -1,
         pick_b: -1,
       };

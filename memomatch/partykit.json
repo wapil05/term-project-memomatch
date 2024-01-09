@@ -2,5 +2,9 @@
   "$schema": "https://www.partykit.io/schema.json",
   "name": "memomatch-party",
   "main": "party/index.ts",
-  "compatibilityDate": "2024-01-03"
+  "compatibilityDate": "2024-01-03",
+  "vars": {
+    "CAT_API_KEY": "live_xDtg6DVIF8dqXNofu0uh6mirITImq8CClthoBgSVNYUJVhfYDpzirH0Abkdi18Mu",
+    "DOG_API_KEY": "live_3kEv6f7MW10xdzXfZNTYuS4Nx8BvG1fjpMjqeCJoiv2ZxbDEoVtPeBEEHOenM91t"
+  }
 }
