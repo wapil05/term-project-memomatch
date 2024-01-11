@@ -3,6 +3,7 @@ import { fetchCardValues } from "../party";
 
 export interface User {
   id: string;
+  points: number;
 }
 
 export type Action = DefaultAction | GameAction;
@@ -27,17 +28,18 @@ export interface GameState {
 }
 
 // per default Cats pics (4x5) for initial GameState
-let fetched_values: string[];
+//let fetched_values: string[];
 
 // This is how a fresh new game starts out, it's a function so you can make it dynamic!
 // In the case of the guesser game we start out with a random target
 export const initialGame = (party: Room) => {
-  
+/*
   //fetch card values when room is created
   fetchCardValues(
     "https://api.thecatapi.com/v1/images/search?&limit=8&order=RAND&api_key=" +
       party.env.CAT_API_KEY
   ).then((data) => (fetched_values = data));
+*/
   
   return {
     users: [],
@@ -83,12 +85,12 @@ const cards = (card_values: string[]) => {
 };
 
 // Here are all the actions we can dispatch for a user
-type GameAction =  
+type GameAction =    
+    { type: "compare"; index: number }  
   | { type: "start"; boardSize: number; theme: string, urls?: string[] }
-  | { type: "reset"; boardSize: number; theme: string, urls?: string[] }
-  | { type: "settings" }
-  | { type: "pick"; i: number }
-  | { type: "compare" };
+  | { type: "reset"; boardSize: number; theme: string, urls?: string[] }      
+  | { type: "settings" }    
+  | { type: "pick"; i: number };
 
 const nextTurn = (state: GameState) => {
   if (state.active_player === state.users.length - 1) return 0;
@@ -100,9 +102,7 @@ export const gameUpdater = (
   state: GameState
 ): GameState => {
   // This switch should have a case for every action type you add.
-
   // "UserEntered" & "UserExit" are defined by default
-
   // Every action has a user field that represent the user who dispatched the action,
   // you don't need to add this yourself
 
@@ -110,19 +110,23 @@ export const gameUpdater = (
     case "UserEntered":
       return {
         ...state,
-        users: [...state.users, action.user],
+        users: [...state.users, action.user]
       };
 
     case "UserExit":
       return {
         ...state,
-        users: state.users.filter((user) => user.id !== action.user.id),
+        users: state.users.filter((user) => user.id !== action.user.id)
       };
     case "settings":
       return { ...state, active_player: null };
 
     case "start":      
       // data fetching happens in party/index.ts and gets handed over via action.urls parameter
+      for(let i = 0; i < state.users.length; i++){
+        state.users[i].points = 0;
+      }
+
       return {
         ...state,
         active_player: 0,
@@ -138,6 +142,10 @@ export const gameUpdater = (
     case "reset":
       // data fetching happens in party/index.ts and gets handed over via action.urls parameter
       // per default cat pics 4x4 will be fetched
+      for(let i = 0; i < state.users.length; i++){
+        state.users[i].points = 0;
+      }
+      
       return {
         ...state,
         active_player: 0,
@@ -163,10 +171,13 @@ export const gameUpdater = (
       if (state.pick_a === -1 && state.pick_b === -1) return state;
       else {
         //check if a pair was picked
-        if (state.cards[state.pick_a].src === state.cards[state.pick_b].src) {
+        if (state.cards[state.pick_a].src === state.cards[state.pick_b].src) {          
           state.cards[state.pick_a].state = "guessed";
-          state.cards[state.pick_b].state = "guessed";
-          // to do: add points
+          state.cards[state.pick_b].state = "guessed";      
+
+          console.log((action.index))        
+          state.users[(action.index) ?? 0].points +=1;
+          
 
           // check if all cards are guessed
           if (state.cards.filter((c) => c.state === false).length === 0) {
@@ -187,7 +198,7 @@ export const gameUpdater = (
         }
         state.pick_a = -1;
         state.pick_b = -1;
-        return { ...state, cards: state.cards };
+        return { ...state, cards: state.cards, users: state.users };
       }
   }
 };

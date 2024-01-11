@@ -56,8 +56,8 @@ const Game = ({ username, roomId }: GameProps) => {
                     key={user.id}
                     className={
                       username === user.id
-                        ? " font-bold text-center"
-                        : "text-center"
+                        ? " font-bold text-center my-2"
+                        : "text-center my-2"
                     }
                   >
                     {user.id}
@@ -78,8 +78,7 @@ const Game = ({ username, roomId }: GameProps) => {
 
         <section className="mydiv flex flex-col gap-5 grow items-center">
           <h2>settings</h2>
-          <br />
-          <p>THEME</p>
+          <p className="uppercase mt-3">theme</p>
           <div className="flex flex-row gap-3">
             <button className="btn settings"
               onClick={() => {
@@ -90,7 +89,7 @@ const Game = ({ username, roomId }: GameProps) => {
                 setTheme('dogs')
               }}>dogs</button>
           </div>
-          <p>BOARD SIZE</p>
+          <p className="uppercase mt-3">board size</p>
           <div className="flex flex-row gap-3">
             <button className="btn settings"
               onClick={() => {
@@ -101,10 +100,9 @@ const Game = ({ username, roomId }: GameProps) => {
                 setBoardSize(10)
               }}>5 x 4</button>
           </div>
-          <br />
 
           <button
-            className="btn"
+            className="btn my-4"
             onClick={() => dispatch({ type: "start", boardSize: boardSize, theme: theme })}
           >
             start game
@@ -118,22 +116,35 @@ const Game = ({ username, roomId }: GameProps) => {
       <div className=" flex w-8/12 m-auto gap-9">
         <section className="mydiv w-75 h-min flex flex-col gap-2">
           <h2>Leaderboard</h2>
-          <ul className="my-4">
+          <div className="grid grid-cols-2 gap-2 px-5 my-5">
+            <div className="uppercase text-white">Player</div>
+            <div className="uppercase text-white">Points</div>
             {gameState.users.map((user) => {
               return (
-                <li
-                  key={user.id}
-                  className={
-                    username === user.id
-                      ? " font-bold text-center"
-                      : "text-center"
-                  }
-                >
-                  {user.id}
-                </li>
+                <>
+                  <div
+                    key={user.id}
+                    className={
+                      username === user.id
+                        ? " font-bold"
+                        : ""
+                    }
+                  >
+                    {user.id}
+                  </div>
+                  <div
+                    key={user.id}
+                    className={
+                      username === user.id
+                        ? " font-bold"
+                        : ""
+                    }>
+                    {user.points} Pts.
+                  </div>
+                </>
               );
             })}
-          </ul>
+          </div>
 
           {gameState.finished ? (
             <>
@@ -142,8 +153,8 @@ const Game = ({ username, roomId }: GameProps) => {
                 <span> All pairs found!</span>
               </div>
               <button
-                className="btn w-full"
-                onClick={() => dispatch({ type: "reset", boardSize: boardSize, theme: theme})}
+                className="btn w-full my-3"
+                onClick={() => dispatch({ type: "reset", boardSize: boardSize, theme: theme })}
               >
                 play again
               </button>
@@ -164,7 +175,7 @@ const Game = ({ username, roomId }: GameProps) => {
           </button>
         </section>
 
-        <section className="mydiv grid gap-5 grow items-center h-[800px]">
+        <section className="mydiv grid gap-5 grow items-center">
           <Memory state={gameState} myturn={myturn()} dispatch={dispatch} />
         </section>
       </div>

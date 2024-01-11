@@ -30,7 +30,7 @@
   }
 
   main {
-    @apply m-auto w-full
+    @apply m-10 w-full
   }
 
   h1 {

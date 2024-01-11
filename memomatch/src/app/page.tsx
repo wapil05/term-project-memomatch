@@ -2,6 +2,8 @@
 import Game from "@/components/Game";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { usernameAtom } from '../../state/atoms'
+import { useAtom } from "jotai";
 import { z } from "zod";
 
 const queryParamsValidator = z.object({
@@ -13,8 +15,9 @@ interface GameSetup {
 }
 
 export default function Login() {
+  const [username, setUsername] = useAtom(usernameAtom)
   const [setup, setSetup] = useState<GameSetup>({
-    username: null,
+    username: username,
   });
 
   const router = useRouter();

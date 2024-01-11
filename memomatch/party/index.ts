@@ -15,6 +15,17 @@ export async function fetchCardValues(url: string): Promise<string[]> {
   return card_values;
 }
 
+// function for returningn the senders index in users: User[]
+function getIndex(gameState: GameState, id: string): number {
+  let index: number = 0;
+  for (let i = 0; i < gameState.users.length; i++) {
+    if (gameState.users[i].id == id) {
+      index = i;
+    }
+  }
+  return index;
+}
+
 export default class Server implements Party.Server {
   private gameState: GameState;
   constructor(readonly party: Party.Party) {
@@ -34,7 +45,7 @@ export default class Server implements Party.Server {
     // let's send a message to the connection
     // conn.send();
     this.gameState = gameUpdater(
-      { type: "UserEntered", user: { id: connection.id } },
+      { type: "UserEntered", user: { id: connection.id, points: 0 } },
       this.gameState
     );
     this.party.broadcast(JSON.stringify(this.gameState));
@@ -44,7 +55,7 @@ export default class Server implements Party.Server {
     this.gameState = gameUpdater(
       {
         type: "UserExit",
-        user: { id: connection.id },
+        user: { id: connection.id, points: 0 },
       },
       this.gameState
     );
@@ -54,13 +65,16 @@ export default class Server implements Party.Server {
   onMessage(message: string, sender: Party.Connection) {
     const action: ServerAction = {
       ...(JSON.parse(message) as Action),
-      user: { id: sender.id },
+      user: {
+        id: sender.id,
+        points:
+          this.gameState.users[getIndex(this.gameState, sender.id)].points ?? 0,
+      },
     };
     console.log(`Received action ${action.type} from user ${sender.id}`);
 
-    let fetched_urls: string[];
-
     // data fetching after action 'start' or 'restart'
+    let fetched_urls: string[];
     if (action.type === "start" || action.type === "reset") {
       if (this.party.env.CAT_API_KEY && this.party.env.DOG_API_KEY != null) {
         if (action.theme === "cats") {
@@ -71,13 +85,13 @@ export default class Server implements Party.Server {
               this.party.env.CAT_API_KEY
           )
             .then((data) => (fetched_urls = data))
-            .then(
-              (data) =>
-                (this.gameState = gameUpdater(
-                  { ...action, urls: data },
-                  this.gameState
-                ))
-            );
+            .then((data) => {
+              this.gameState = gameUpdater(
+                { ...action, urls: data },
+                this.gameState
+              );
+              this.party.broadcast(JSON.stringify(this.gameState));
+            });
         } else {
           fetchCardValues(
             "https://api.thedogapi.com/v1/images/search?&limit=" +
@@ -86,13 +100,13 @@ export default class Server implements Party.Server {
               this.party.env.DOG_API_KEY
           )
             .then((data) => (fetched_urls = data))
-            .then(
-              (data) =>
-                (this.gameState = gameUpdater(
-                  { ...action, urls: data },
-                  this.gameState
-                ))
-            );
+            .then((data) => {
+              this.gameState = gameUpdater(
+                { ...action, urls: data },
+                this.gameState
+              );
+              this.party.broadcast(JSON.stringify(this.gameState));
+            });
         }
       } else {
         fetched_urls = ["0", "1", "2", "3", "4", "5", "6", "7"];
@@ -100,7 +114,14 @@ export default class Server implements Party.Server {
           { ...action, urls: fetched_urls },
           this.gameState
         );
+        this.party.broadcast(JSON.stringify(this.gameState));
       }
+    } else if (action.type === "compare") {
+      this.gameState = gameUpdater(
+        { ...action, index: getIndex(this.gameState, sender.id) },
+        this.gameState
+      );
+      this.party.broadcast(JSON.stringify(this.gameState));
     } else {
       this.gameState = gameUpdater(action, this.gameState);
       this.party.broadcast(JSON.stringify(this.gameState));
