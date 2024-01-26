@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useGameRoom } from "@/hooks/useGameRoom";
 import { useRouter } from "next/navigation";
 import Memory from "./Memory";
-import { themeAtom, boardSizeAtom } from "../../state/atoms";
+import { themeAtom, boardSizeAtom, userAtom } from "../../state/atoms";
 import { useAtom } from "jotai";
 
 interface GameProps {
@@ -16,6 +16,7 @@ const Game = ({ username, roomId }: GameProps) => {
   const [showSettings, setShowSettings] = useState(true);
   const [theme, setTheme] = useAtom(themeAtom);
   const [boardSize, setBoardSize] = useAtom(boardSizeAtom);
+  const [user, setUser] = useAtom(userAtom);
 
   const router = useRouter();
 
@@ -68,8 +69,9 @@ const Game = ({ username, roomId }: GameProps) => {
           </div>
           <button
             className="link self-end"
-            onClick={() => {
-              router.push("/");
+            onClick={() => {              
+              setUser({name:null, password:null});
+              router.push("/api/auth/logout");
             }}
           >
             log out

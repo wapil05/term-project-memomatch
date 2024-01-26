@@ -1,4 +1,7 @@
+
 import type { Metadata } from "next";
+//import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { Auth0Provider } from '@auth0/auth0-react';
 
 // These styles apply to every route in the application
 import "./globals.css";
@@ -14,18 +17,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/next.svg" />
-      </head>
-      <body>
-        <main>
-          <h1>Memomatch</h1>
-          {children}
-        </main>
-      </body>
-    </html>
+    <Auth0Provider
+      domain="yourDomain"
+      clientId="yourClientId"
+      authorizationParams={{
+        redirect_uri: window.location.origin
+      }}
+    >
+      <html lang="en">
+        <head>
+          <meta charSet="UTF-8" />
+          <meta name="viewport" content="width=device-width" />
+          <link rel="icon" type="image/svg+xml" href="/next.svg" />
+        </head>
+
+        <body>
+          <main>
+            <h1>Memomatch</h1>
+            {children}
+          </main>
+        </body>
+      </html>
+    </Auth0Provider>
   );
 }
