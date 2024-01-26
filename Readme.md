@@ -56,8 +56,6 @@ Start the partykit dev server in the project's root folder:
 npx partykit dev
 ```
 
-The Game Setup is based on this [Example](https://docs.partykit.io/examples/starter-kits/game-starter-nextjs-redux/).
-
 ## Development
 
 ### Collaboration & Git
@@ -76,6 +74,8 @@ The development regarding to the required topics `Authorization`, `Client-Server
 __MemoMatch__ is an online version of the wellknown card game *Memory*. The players can choose between cat 🐱 and dog 🐶 Memory cards. They can also choose between a 4x4 (8 card pairs) and 5x4 (10 card pairs)
 game.
 
+The biggest challenge was time. But beside that we also encounterd some challenges with Authorization. It wasn't clear which approach to choose - the one for [Auth0 with Next.js](https://auth0.com/docs/quickstart/webapp/nextjs/01-login) or the one for [Auth0 and React](https://auth0.com/docs/quickstart/spa/react/01-login) ?!?
+
 ### Authorization
 *TODO: Which form of authorization did you use in your application? Briefly describe why you picked*
 
@@ -88,6 +88,13 @@ Authentication be used to login a user and specific routes or at least the API s
 
 ### Client-Server Communication
 *TODO: Which approaches to a client-server communication did you use? Outline why you have made that choice and detail some challenges that you encountered.*
+
+We used [*PartyKit*](https://docs.partykit.io/how-partykit-works) for Client-Server Communication. The reason for our choice was, that PartyKit provides multiple App exampels for different use cases, which developer can use as a foundation.
+In our case we build our Game Setup on top of a [community starter template](https://docs.partykit.io/examples/starter-kits/game-starter-nextjs-redux/) for turn-based multiplayer games with Next.js.
+
+It was fascinating for us, how real the real-time experience feels with PartyKit! ✨
+
+The one and only barrier was to get an overview at first and to understand how the Client-Server Communication works. After that, the implementation of PartyKit works nearly trouble-free.
 
 ### Testing
 *TODO: Did you integrate tests into you application. If yes, which sorts of tests were you running? Did you feel that the precense of the tests made certain development tasks easier / result in a more stable application?*
