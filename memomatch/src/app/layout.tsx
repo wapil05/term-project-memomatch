@@ -18,8 +18,8 @@ export default function RootLayout({
 }) {
   return (
     <Auth0Provider
-      domain="yourDomain"
-      clientId="yourClientId"
+      domain="dev-6nw16umezarw38ei.us.auth0.com"
+      clientId="Fqoh1lC9gjaea9fVwkWbUaYhOm9k2FoT"
       authorizationParams={{
         redirect_uri: window.location.origin
       }}
