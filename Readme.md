@@ -1,6 +1,6 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/az7rpZTG)
 
-# Memo Match
+# MemoMatch 🎲
 
 This is the repository for the Web Applications Project `MemoMatch`. We are using React based on TypeScript/DaisyUI approach.
 
@@ -32,7 +32,7 @@ The project is using the App Router framework:
 ### Development Server
 Clone the repository
 ```bash
-git clone xyz
+git clone https://github.com/wapil05/term-project-memomatch.git
 ```
 Switch to the project's root folder
 ```bash
