@@ -1,7 +1,5 @@
-
 import type { Metadata } from "next";
-//import { UserProvider } from '@auth0/nextjs-auth0/client';
-import { Auth0Provider } from '@auth0/auth0-react';
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 // These styles apply to every route in the application
 import "./globals.css";
@@ -17,13 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Auth0Provider
-      domain="dev-6nw16umezarw38ei.us.auth0.com"
-      clientId="Fqoh1lC9gjaea9fVwkWbUaYhOm9k2FoT"
-      authorizationParams={{
-        redirect_uri: window.location.origin
-      }}
-    >
+    <UserProvider>
       <html lang="en">
         <head>
           <meta charSet="UTF-8" />
@@ -38,6 +30,6 @@ export default function RootLayout({
           </main>
         </body>
       </html>
-    </Auth0Provider>
+    </UserProvider>
   );
 }
