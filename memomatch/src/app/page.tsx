@@ -20,7 +20,7 @@ const GameSetupAtom = atom<GameSetup>({ username: null });
 
 export default function Login() {
   const [user, setUser] = useAtom(userAtom)
-  const [setup, setSetup] = useAtom(GameSetupAtom);
+  const [setup, setSetup] = useAtom(GameSetupAtom); 
   const { loginWithRedirect } = useAuth0();
 
   const router = useRouter();
