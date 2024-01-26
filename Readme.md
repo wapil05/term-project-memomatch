@@ -29,7 +29,7 @@ The project is using the App Router framework:
 ### Prerequisites
 [Node.js](https://nodejs.org/en/) (2021 installed or higher should be just fine)
 
-### Web App
+### Development Server
 Clone the repository
 ```bash
 git clone xyz
