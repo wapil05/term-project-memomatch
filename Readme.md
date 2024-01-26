@@ -2,9 +2,10 @@
 
 # Memo Match
 
-This is the repository for the Web Applications Project `Memo Match`. We are using React based on TypeScript/DaisyUI approach.
+This is the repository for the Web Applications Project `MemoMatch`. We are using React based on TypeScript/DaisyUI approach.
 
 Resources to get started:
+- [Next.js Documentation](https://nextjs.org/docs)
 - [React documentation](https://react.dev/learn)
 - [DaisyUI](https://daisyui.com/docs/use/)
 - [Tailwind CSS](https://tailwindcss.com/docs/utility-first)
@@ -23,16 +24,39 @@ The project is using the App Router framework:
 - A special page.tsx file is used to make route segments publicly accessible.
 - Special file conventions are used to create UI for each route segment. The most common are `pages` to show UI unique to a route, and `layouts` to show UI that is shared across multiple routes. For further information about special file conventions [Click here](https://nextjs.org/docs/app/building-your-application/routing#file-conventions)
 
-## How to run the project
+## Getting started
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/en/) (2021 installed or higher should be just fine)
+[Node.js](https://nodejs.org/en/) (2021 installed or higher should be just fine)
 
-### Installation
-1. Clone the repository
-2. Run `npm install` in the root folder of the project
-3. Run `npm run dev` to start the development server
-4. Open [localhost:3000](http://localhost:3000/) in your browser
+### Web App
+Clone the repository
+```bash
+git clone xyz
+```
+Switch to the project's root folder
+```bash
+cd .\memomatch\
+```
+Install the dependencies in the root folder of the project
+```bash
+npm install
+```
+Start the development server
+```bash
+npm run dev
+```
+Open [localhost:3000](http://localhost:3000/) in your browser
+
+### Partykit server
+
+Start the partykit dev server in the project's root folder:
+
+```bash
+npx partykit dev
+```
+
+The Game Setup is based on this [Example](https://docs.partykit.io/examples/starter-kits/game-starter-nextjs-redux/).
 
 ## Development
 
@@ -47,26 +71,36 @@ There is 1 fixed branche `main`. Additionally, for every `feature` and `bugfix` 
 The development regarding to the required topics `Authorization`, `Client-Server Communication`, `Testing` and `Continuous Integration` will be summarized in the following paragraphs:
 
 ### Summary
-Describe briefly what the project was about. What were the challenges that you were facing and how did you solve them.
+*TODO: Describe briefly what the project was about. What were the challenges that you were facing and how did you solve them.*
+
+__MemoMatch__ is an online version of the wellknown card game *Memory*. The players can choose between cat 🐱 and dog 🐶 Memory cards. They can also choose between a 4x4 (8 card pairs) and 5x4 (10 card pairs)
+game.
 
 ### Authorization
-Which form of authorization did you use in your application? Briefly describe why you picked
+*TODO: Which form of authorization did you use in your application? Briefly describe why you picked*
 
+The Authorization Provider [*Auth0*](https://auth0.com/de) has been used. The reason for choosing oAuth honestly was, to avoid settiung up a database with the login data.
+The Authentication is used to only enable logged-in users access to the Game-Play.
+<!--
 **How much authentication should be implemented?**
 Authentication be used to login a user and specific routes or at least the API should be protected by authorization. This means that without being logged in, some API calls should not be possible.
+-->
 
 ### Client-Server Communication
-Which approaches to a client-server communication did you use? Outline why you have made that choice and detail some challenges that you encountered.
+*TODO: Which approaches to a client-server communication did you use? Outline why you have made that choice and detail some challenges that you encountered.*
 
 ### Testing
-Did you integrate tests into you application. If yes, which sorts of tests were you running? Did you feel that the precense of the tests made certain development tasks easier / result in a more stable application?
+*TODO: Did you integrate tests into you application. If yes, which sorts of tests were you running? Did you feel that the precense of the tests made certain development tasks easier / result in a more stable application?*
 
+<!--
 **Do I need to write automated tests for the project?**
 Yes, but not your entire application needs to be tested. Unit tests for some smaller parts of your logic or UI will be fine. If you have a lot of real time interaction (reliance on websockets etc), this does not need to be tested. The goal of this requirement for you to at least write some tests, not achieve a 100% test coverage.
+-->
 
 ### Continuous Integration
-Did you use continuous integration in you setup? If yes, which tasks were running on the CI?
+*TODO: Did you use continuous integration in you setup? If yes, which tasks were running on the CI?*
 
+<!--
 **Is a continous integration setup required?**
 Yes, but again, do not go overboard with it. A simple github action for the jest unit tests or an eslint setup (as we have set up in the continous integration unit) will be 100% enough. The goal of this requirement is for you to familiarize yourself with the continous integration setups.
-
+-->
