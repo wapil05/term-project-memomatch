@@ -1,9 +1,8 @@
-// "use client";
 import { useState } from "react";
 import { useGameRoom } from "@/hooks/useGameRoom";
 import { useRouter } from "next/navigation";
 import Memory from "./Memory";
-import { themeAtom, boardSizeAtom, userAtom } from "../../state/atoms";
+import { themeAtom, boardSizeAtom } from "../../state/atoms";
 import { useAtom } from "jotai";
 
 interface GameProps {
@@ -16,7 +15,7 @@ const Game = ({ username, roomId }: GameProps) => {
   const [showSettings, setShowSettings] = useState(true);
   const [theme, setTheme] = useAtom(themeAtom);
   const [boardSize, setBoardSize] = useAtom(boardSizeAtom);
-  const [user, setUser] = useAtom(userAtom);
+
 
   const router = useRouter();
 
@@ -67,40 +66,48 @@ const Game = ({ username, roomId }: GameProps) => {
               })}
             </ul>
           </div>
-          <button
-            className="link self-end"
-            onClick={() => {              
-              setUser({name:null, password:null});
-              router.push("/api/auth/logout");
-            }}
-          >
-            log out
-          </button>
+          <a className="link self-end justify-self-center" href="/api/auth/logout">
+            logout
+          </a>
         </section>
 
         <section className="mydiv flex flex-col gap-5 grow items-center">
           <h2>settings</h2>
-          <p className="uppercase mt-3">theme</p>
-          <div className="flex flex-row gap-3">
-            <button className="btn settings"
-              onClick={() => {
-                setTheme('cats')
-              }}>cats</button>
-            <button className="btn settings"
-              onClick={() => {
-                setTheme('dogs')
-              }}>dogs</button>
+          <p className="uppercase mt-3">theme</p>         
+          <div role='tablist' className='tabs tabs-boxed'>
+            {theme === 'cats' ? (
+              <>
+                <a role='tab' className='tab tab-active'>Cats</a>
+                <a role='tab' className='tab' onClick={() => {
+                  setTheme('dogs')
+                }}>Dogs</a>
+              </>
+            ) :
+              <>
+                <a role='tab' className='tab' onClick={() => {
+                  setTheme('cats')
+                }}>Cats</a>
+                <a role='tab' className='tab tab-active'>Dogs</a>
+              </>
+            }
           </div>
           <p className="uppercase mt-3">board size</p>
-          <div className="flex flex-row gap-3">
-            <button className="btn settings"
-              onClick={() => {
-                setBoardSize(8)
-              }}>4 x 4</button>
-            <button className="btn settings"
-              onClick={() => {
-                setBoardSize(10)
-              }}>5 x 4</button>
+          <div role='tablist' className='tabs tabs-boxed'>
+            {boardSize === 8 ? (
+              <>
+                <a role='tab' className='tab tab-active'>4 x 4</a>
+                <a role='tab' className='tab' onClick={() => {
+                  setBoardSize(10)
+                }}>5 x 4</a>
+              </>
+            ) :
+              <>
+                <a role='tab' className='tab' onClick={() => {
+                  setBoardSize(8)
+                }}>4 x 4</a>
+                <a role='tab' className='tab tab-active'>5 x 4</a>
+              </>
+            }
           </div>
 
           <button
@@ -118,7 +125,7 @@ const Game = ({ username, roomId }: GameProps) => {
       <div className=" flex w-8/12 m-auto gap-9">
         <section className="mydiv w-75 h-min flex flex-col gap-2">
           <h2>Leaderboard</h2>
-          <div className="grid grid-cols-2 gap-2 px-5 my-5">
+          <div className="grid grid-cols-2 gap-2 gap-x-8 my-5 self-center">
             <div className="uppercase text-white">Player</div>
             <div className="uppercase text-white">Points</div>
             {gameState.users.map((user) => {

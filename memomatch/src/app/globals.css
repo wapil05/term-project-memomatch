@@ -26,11 +26,11 @@
   }
   
   body {
-    @apply bg-[#0F102C] flex min-h-screen
+    @apply bg-[#0F102C] flex min-h-screen;
   }
 
   main {
-    @apply m-10 w-full
+    @apply m-10 w-full flex-col self-center;
   }
 
   h1 {
@@ -56,17 +56,20 @@
     @apply text-[16px] btn-wide;
   }
 
-
   .input {
     @apply w-[529px] h-[63px] bg-gray-700 rounded-[14px] uppercase
   }
 
   .mydiv {
-    @apply bg-slate-800 rounded-xl shadow-lg shadow-black p-5 w-min m-auto my-5;
+    @apply bg-slate-800 rounded-xl shadow-lg shadow-black p-7 w-min m-auto my-10;
   }
 
   .link {
-    @apply underline uppercase hover:text-white;
+    @apply underline uppercase hover:text-indigo-800 text-white;
+  }
+
+  .tab {
+    @apply text-[22px] btn-wide h-12 text-white uppercase rounded-xl  active:bg-indigo-700 content-center;
   }
 }
 

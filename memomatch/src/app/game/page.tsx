@@ -1,16 +1,19 @@
 "use client";
-import Game from "@/components/Game";
-import { useParams } from "next/navigation";
-import { userAtom } from '../../../state/atoms'
-import { useAtom } from "jotai";
 
-export default function MyGame() {
-  const [user, setUser] = useAtom(userAtom);
-  //const params = useParams<{ username: string }>();
+import Game from "@/components/Game";
+import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+
+export default withPageAuthRequired(function MyGame() {
+  const { user, error, isLoading } = useUser();
+
+  if (isLoading || user === undefined) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
 
   return (
-    <div>
-      <Game roomId={"my-room"} username={user.name ?? 'Anonymous'}></Game>
-    </div>
+    user && (
+      <div>
+        <Game roomId={"my-room"} username={user.nickname ?? "Anonymous"}></Game>
+      </div>
+    )
   );
-}
+});
