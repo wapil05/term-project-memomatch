@@ -99,6 +99,10 @@ The one and only barrier was to get an overview at first and to understand how t
 ### Testing
 *TODO: Did you integrate tests into you application. If yes, which sorts of tests were you running? Did you feel that the precense of the tests made certain development tasks easier / result in a more stable application?*
 
+We integrated unit tests via ts-jest to test the actions in the gameUpdater function from logic.ts.
+The tests result in a more stable application, since errors in the game logic can be identified immediately with the help of tests.
+
+
 <!--
 **Do I need to write automated tests for the project?**
 Yes, but not your entire application needs to be tested. Unit tests for some smaller parts of your logic or UI will be fine. If you have a lot of real time interaction (reliance on websockets etc), this does not need to be tested. The goal of this requirement for you to at least write some tests, not achieve a 100% test coverage.
