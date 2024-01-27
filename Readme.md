@@ -56,6 +56,13 @@ Start the partykit dev server in the project's root folder:
 npx partykit dev
 ```
 
+### Testing
+Run the tests in the project's root folder
+
+```bash
+npm test
+```
+
 ## Development
 
 ### Collaboration & Git
