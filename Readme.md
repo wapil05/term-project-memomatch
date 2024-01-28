@@ -81,7 +81,7 @@ The development regarding to the required topics `Authorization`, `Client-Server
 __MemoMatch__ is an online version of the wellknown card game *Memory*. The players can choose between cat 🐱 and dog 🐶 Memory cards. They can also choose between a 4x4 (8 card pairs) and 5x4 (10 card pairs)
 game.
 
-The biggest challenge was time. But beside that we also encounterd some challenges with Authorization. It wasn't clear which approach to choose - the one for [Auth0 with Next.js](https://auth0.com/docs/quickstart/webapp/nextjs/01-login) or the one for [Auth0 and React](https://auth0.com/docs/quickstart/spa/react/01-login) ?!?
+The biggest challenge was time. But beside that we also encounterd some challenges with Authorization. It wasn't clear which approach to choose - the one for [Auth0 with Next.js](https://auth0.com/docs/quickstart/webapp/nextjs/01-login) or the one for [Auth0 and React](https://auth0.com/docs/quickstart/spa/react/01-login. It turned out that the first approach was the right one, because Next.js alsways builds a server side variant of the pages and so the <Aut0Provider> component couldn't be supported.
 
 ### Authorization
 *TODO: Which form of authorization did you use in your application? Briefly describe why you picked*
