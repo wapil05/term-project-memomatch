@@ -56,6 +56,13 @@ Start the partykit dev server in the project's root folder:
 npx partykit dev
 ```
 
+### Testing
+Run the tests in the project's root folder
+
+```bash
+npm test
+```
+
 ## Development
 
 ### Collaboration & Git
@@ -98,6 +105,10 @@ The one and only barrier was to get an overview at first and to understand how t
 
 ### Testing
 *TODO: Did you integrate tests into you application. If yes, which sorts of tests were you running? Did you feel that the precense of the tests made certain development tasks easier / result in a more stable application?*
+
+We integrated unit tests via ts-jest to test the actions in the gameUpdater function from logic.ts.
+The tests result in a more stable application, since errors in the game logic can be identified immediately with the help of tests.
+
 
 <!--
 **Do I need to write automated tests for the project?**
