@@ -27,20 +27,9 @@ export interface GameState {
   theme: string;
 }
 
-// per default Cats pics (4x5) for initial GameState
-//let fetched_values: string[];
-
 // This is how a fresh new game starts out, it's a function so you can make it dynamic!
 // In the case of the guesser game we start out with a random target
 export const initialGame = (party: Room) => {
-/*
-  //fetch card values when room is created
-  fetchCardValues(
-    "https://api.thecatapi.com/v1/images/search?&limit=8&order=RAND&api_key=" +
-      party.env.CAT_API_KEY
-  ).then((data) => (fetched_values = data));
-*/
-  
   return {
     users: [],
     active_player: null,
@@ -148,7 +137,7 @@ export const gameUpdater = (
       
       return {
         ...state,
-        active_player: 0,
+        active_player: null,
         finished: false,
         cards:
           cards((action.urls) ?? ["0", "1", "2", "3", "4", "5", "6", "7"]),  //set new fetch values if not null

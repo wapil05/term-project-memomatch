@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { GameState } from "../../game/logic";
 import MemoryCard from "./MemoryCard";
-import { boardSizeAtom } from "../../state/atoms";
-import { useAtomValue } from "jotai";
-
 
 const Memory = ({
   state,
