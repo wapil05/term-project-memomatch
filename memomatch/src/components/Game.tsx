@@ -73,7 +73,7 @@ const Game = ({ username, roomId }: GameProps) => {
 
         <section className="mydiv flex flex-col gap-5 grow items-center">
           <h2>settings</h2>
-          <p className="uppercase mt-3">theme</p>         
+          <p className="uppercase mt-3">theme</p>
           <div role='tablist' className='tabs tabs-boxed'>
             {theme === 'cats' ? (
               <>
@@ -131,16 +131,22 @@ const Game = ({ username, roomId }: GameProps) => {
             {gameState.users.map((user) => {
               return (
                 <>
-                  <div
+                  {myturn() ? (<div
                     key={user.id}
                     className={
                       username === user.id
-                        ? " font-bold"
+                        ? "font-bold text-indigo-500"
                         : ""
                     }
-                  >
-                    {user.id}
-                  </div>
+                  > {user.id}</div>) : (<div
+                    key={user.id}
+                    className={
+                      username === user.id
+                        ? "font-bold"
+                        : "text-indigo-500"
+                    }
+                  > {user.id}
+                  </div>)}
                   <div
                     key={user.id}
                     className={
@@ -149,32 +155,34 @@ const Game = ({ username, roomId }: GameProps) => {
                         : ""
                     }>
                     {user.points} Pts.
-                  </div>
+                  </div >
                 </>
               );
             })}
           </div>
 
-          {gameState.finished ? (
-            <>
-              <div className="alert alert-success h-min text-center rounded-md">
-                <span>😎</span>
-                <span> All pairs found!</span>
-              </div>
-              <button
-                className="btn w-full my-3"
-                onClick={() => dispatch({ type: "reset", boardSize: boardSize, theme: theme })}
-              >
-                play again
-              </button>
-            </>
-          ) : (
-            <>
-              <p className=" my-5 text-center text-xl text-white font-semibold">
-                {myturn() ? <>Your</> : <>{getActivePlayer()}&apos;s</>} turn!
-              </p>
-            </>
-          )}
+          {
+            gameState.finished ? (
+              <>
+                <div className="alert alert-success h-min text-center rounded-md">
+                  <span>😎</span>
+                  <span> All pairs found!</span>
+                </div>
+                <button
+                  className="btn w-full my-3"
+                  onClick={() => dispatch({ type: "reset", boardSize: boardSize, theme: theme })}
+                >
+                  play again
+                </button>
+              </>
+            ) : (
+              <>
+                <p className=" my-5 text-center text-xl text-white font-semibold">
+                  {myturn() ? <>Your</> : <>{getActivePlayer()}&apos;s</>} turn!
+                </p>
+              </>
+            )
+          }
 
           <button
             className="link"
@@ -182,12 +190,11 @@ const Game = ({ username, roomId }: GameProps) => {
           >
             back to settings
           </button>
-        </section>
-
-        <section className="mydiv grid gap-5 grow items-center">
+        </section >
+        <section className="mydiv grid items-center">
           <Memory state={gameState} myturn={myturn()} dispatch={dispatch} />
         </section>
-      </div>
+      </div >
     );
 };
 

@@ -6,7 +6,7 @@ interface ServerMessage {
   state: GameState;
 }
 
-// Data fetching function - gets called on initial load and when user clicks 'start'
+// Data fetching function - gets called on initial load and when user clicks 'start' and 'reset'
 export async function fetchCardValues(url: string): Promise<string[]> {
   const res = await fetch(url);
   const imgs = await res.json();

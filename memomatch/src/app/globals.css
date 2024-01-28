@@ -69,7 +69,7 @@
   }
 
   .tab {
-    @apply text-[22px] btn-wide h-12 text-white uppercase rounded-xl  active:bg-indigo-700 content-center;
+    @apply text-[22px] btn-wide h-12 text-white uppercase rounded-xl  content-center;
   }
 }
 
