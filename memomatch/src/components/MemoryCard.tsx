@@ -1,7 +1,3 @@
-import { useEffect, useState } from "react";
-import { useGameRoom } from "@/hooks/useGameRoom";
-import { GameState } from "../../game/logic";
-import Image from "next/image";
 
 const MemoryCard = ({
   img,
