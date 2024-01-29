@@ -118,7 +118,7 @@ describe('gameUpdater actions', () => {
 
         testState = gameUpdater(action, testState);
 
-        expect(testState.active_player).toBe(0);
+        expect(testState.active_player).toBe(null);
         expect(testState.finished).toBe(false);
         expect(testState.pick_a).toBe(-1);
         expect(testState.pick_b).toBe(-1);
