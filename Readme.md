@@ -24,6 +24,16 @@ The project is using the App Router framework:
 - A special page.tsx file is used to make route segments publicly accessible.
 - Special file conventions are used to create UI for each route segment. The most common are `pages` to show UI unique to a route, and `layouts` to show UI that is shared across multiple routes. For further information about special file conventions [Click here](https://nextjs.org/docs/app/building-your-application/routing#file-conventions)
 
+**Partykit and game logic**
+
+We build our game on top of a [community starter template](https://docs.partykit.io/examples/starter-kits/game-starter-nextjs-redux/).
+- `party/index.ts`: containes the functionality for the partykit server. When a client action is dispatched an update function is called which then broadcastes an updated GameState to all the users. 
+- `game/logic.ts`: contains all the logic for the game, the most important parts are the GameState interface, the GameAction type and the gameUpdater function.
+- `src/hooks/useGameRoom.tsx`: provides the client with 
+    - `gameState`, the current GameState for the party room 
+    - `dispatch`, the function with which a client can send Actions to the server
+
+
 ## Getting started
 
 ### Prerequisites
@@ -46,7 +56,7 @@ Start the development server
 ```bash
 npm run dev
 ```
-Open [localhost:3000](http://localhost:3000/) in your browser
+Open [localhost:3000](https://localhost:3000/) in your browser
 
 ### Partykit server
 
@@ -62,6 +72,23 @@ Run the tests in the project's root folder
 ```bash
 npm test
 ```
+
+
+### Enviorment Variables
+
+For the authorization the follwing variables need to be stored in the `.env.local` file. They are listed below for convenience.
+
+```bash
+AUTH0_SECRET='use [openssl rand -hex 32] to generate a 32 bytes value'
+AUTH0_BASE_URL='https://localhost:3000'
+AUTH0_ISSUER_BASE_URL='https://dev-6nw16umezarw38ei.us.auth0.com'
+AUTH0_CLIENT_ID='Fqoh1lC9gjaea9fVwkWbUaYhOm9k2FoT'
+AUTH0_CLIENT_SECRET='DmgDWgbf58eGcytr4Ay7sdk-1-zF4IWcbxxAJ82oZ25WPkv5sgsc5JUYwrG3cy1L'
+```
+
+For the cat and dog pictures the keys were requested from [theCatAPI](https://thecatapi.com/) and [theDogAPI](https://www.thedogapi.com/) and inserted into `partykit.json`, which was excluded from gitignore since we won't be deploying the website.
+
+
 
 ## Development
 
@@ -80,7 +107,7 @@ The development regarding to the required topics `Authorization`, `Client-Server
 __MemoMatch__ is an online version of the wellknown card game *Memory*. The players can choose between cat 🐱 and dog 🐶 Memory cards. They can also choose between a 4x4 (8 card pairs) and 5x4 (10 card pairs)
 game.
 
-The biggest challenge was time. But beside that we also encounterd some challenges with Authorization. It wasn't clear which approach to choose - the one for [Auth0 with Next.js](https://auth0.com/docs/quickstart/webapp/nextjs/01-login) or the one for [Auth0 and React](https://auth0.com/docs/quickstart/spa/react/01-login. It turned out that the first approach was the right one, because Next.js alsways builds a server side variant of the pages and so the <Aut0Provider> component couldn't be supported.
+The biggest challenge was time. But beside that we also encounterd some challenges with Authorization. It wasn't clear which approach to choose - the one for [Auth0 with Next.js](https://auth0.com/docs/quickstart/webapp/nextjs/01-login) or the one for [Auth0 and React](https://auth0.com/docs/quickstart/spa/react/01-login). It turned out that the first approach was the right one, because Next.js alsways builds a server side variant of the pages and so the <Aut0Provider> component couldn't be supported.
 
 ### Authorization
 <!-- *TODO: Which form of authorization did you use in your application? Briefly describe why you picked* -->
@@ -110,7 +137,9 @@ Yes, but not your entire application needs to be tested. Unit tests for some sma
 -->
 
 ### Continuous Integration
-*TODO: Did you use continuous integration in you setup? If yes, which tasks were running on the CI?*
+<!-- *TODO: Did you use continuous integration in you setup? If yes, which tasks were running on the CI?* -->
+
+If changes are push to the main branch the test and the linting commands are executed in the memomatch directory. The github action file is based on the Workflow for [Node.js](https://github.com/wapil05/term-project-memomatch/actions/new?category=continuous-integration&query=Node.js).
 
 <!--
 **Is a continous integration setup required?**

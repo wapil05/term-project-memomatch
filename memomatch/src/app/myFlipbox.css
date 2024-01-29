@@ -1,7 +1,7 @@
 .flip-box {
   perspective: 1000px;
-  width: 160px;
-  height: 160px;
+  /* width: 160px;
+  height: 160px; */
 }
 
 .flip-box-inner {
