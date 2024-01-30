@@ -6,10 +6,10 @@ This is the repository for the Web Applications Project `MemoMatch`. We are usin
 
 Resources to get started:
 - [Next.js Documentation](https://nextjs.org/docs)
-- [React documentation](https://react.dev/learn)
+- [React Documentation](https://react.dev/learn)
 - [DaisyUI](https://daisyui.com/docs/use/)
 - [Tailwind CSS](https://tailwindcss.com/docs/utility-first)
-
+- [Jest Documentation](https://jestjs.io/docs/getting-started)
 ## Project Structure
 All the code is in the `src\app` folder. The `src` folder is structured as follows:
 - `src/app/layout.tsx`: contains the root layout with the required `<html>` and `<body>` tags.
