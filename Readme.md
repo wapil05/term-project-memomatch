@@ -24,7 +24,7 @@ The project is using the App Router framework:
 - A special page.tsx file is used to make route segments publicly accessible.
 - Special file conventions are used to create UI for each route segment. The most common are `pages` to show UI unique to a route, and `layouts` to show UI that is shared across multiple routes. For further information about special file conventions [Click here](https://nextjs.org/docs/app/building-your-application/routing#file-conventions)
 
-**Partykit and game logic**
+**PartyKit and Game Logic**
 
 We build our game on top of a [community starter template](https://docs.partykit.io/examples/starter-kits/game-starter-nextjs-redux/).
 - `party/index.ts`: containes the functionality for the partykit server. When a client action is dispatched an update function is called which then broadcastes an updated GameState to all the users. 
