@@ -109,6 +109,7 @@ const Game = ({ username, roomId }: GameProps) => {
           <div role="tablist" className="tabs tabs-boxed lg:tabs-lg">
             {boardSize === 8 ? (
               <>
+                {/* This would not necessarily be an `a` element, as it does not navigate anywhere. It switches an internal app state, which buttons would be better suited for. */}
                 <a role="tab" className="tab tab-active ">
                   4 x 4
                 </a>

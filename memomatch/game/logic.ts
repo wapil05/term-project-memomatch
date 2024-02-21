@@ -62,7 +62,7 @@ const cards = (card_values: string[]) => {
     return array;
   }
 
-  //duplicate and shuffel values
+  //duplicate and shuffle values
   card_values = shuffle(card_values.flatMap((i) => [i, i]));
 
   // adding the state value
