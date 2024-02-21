@@ -3,6 +3,8 @@ import { useAtomValue, atom, useAtom } from "jotai";
 import { GameState } from "../../game/logic";
 import { useEffect } from "react";
 
+// The winnerAtom does not really need to be an atom, as it's scope
+// is limited to the End component. It could be a simple useState within the component as well.
 const winnerAtom = atom<string>('');
 
 export const End = ({
@@ -33,6 +35,7 @@ export const End = ({
                 <h3>Finished</h3>
                 <div className="text-center text-white">
                     <h4 className="my-3">Congratulations to </h4>
+                    {/* Extremely nitpicky, but the span with the winner could also still be in the h4 */}
                     <span className="uppercase text-xl">{winner}! 🥳</span>
                 </div>
                 <button
